@@ -11,9 +11,9 @@ bin/decodef32\
 bin/decodef64\
 bin/inclusivescan\
 bin/convertkdtopkd\
-bin/footerizetxt\
-bin/footerizesdf\
-bin/footerizepdbqt\
+bin/footertxt\
+bin/footersdf\
+bin/footerpdbqt\
 bin/splitsdf\
 bin/splitmol2\
 bin/splitpdbqt\
@@ -51,13 +51,13 @@ bin/inclusivescan: obj/inclusivescan.o
 bin/convertkdtopkd: obj/convertkdtopkd.o
 	${CC} -o $@ $^
 
-bin/footerizetxt: obj/footerizetxt.o
+bin/footertxt: obj/footertxt.o
 	${CC} -o $@ $^
 
-bin/footerizesdf: obj/footerizesdf.o
+bin/footersdf: obj/footersdf.o
 	${CC} -o $@ $^
 
-bin/footerizepdbqt: obj/footerizepdbqt.o
+bin/footerpdbqt: obj/footerpdbqt.o
 	${CC} -o $@ $^
 
 bin/splitsdf: obj/splitsdf.o

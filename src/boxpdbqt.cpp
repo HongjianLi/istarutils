@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <array>
 #include <limits>
 #include <algorithm>
 using namespace std;

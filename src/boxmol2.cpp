@@ -32,12 +32,14 @@ int main(int argc, char* argv[])
 	}
 
 	// Output the box.
+	cout.setf(ios::fixed, ios::floatfield);
+	cout << setprecision(3);
 	cout
 		<< "center_x=" << (x0 + x1) * 0.5 << endl
 		<< "center_y=" << (y0 + y1) * 0.5 << endl
 		<< "center_z=" << (z0 + z1) * 0.5 << endl
-		<< "size_x=" << x1 - x0 + 10 << endl
-		<< "size_y=" << y1 - y0 + 10 << endl
-		<< "size_z=" << z1 - z0 + 10 << endl
+		<< "size_x=" << (x1 - x0) * 1.5 + 2 << endl
+		<< "size_y=" << (y1 - y0) * 1.5 + 2 << endl
+		<< "size_z=" << (z1 - z0) * 1.5 + 2 << endl
 	;
 }

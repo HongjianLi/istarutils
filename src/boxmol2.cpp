@@ -1,11 +1,19 @@
 #include <iostream>
 #include <iomanip>
-#include <fstream>
-#include <string>
+#include <array>
+#include <limits>
+#include <algorithm>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+	const size_t d = 3;
+	const array<char, d> c({ 'x', 'y', 'z' });
+	const array<size_t, d> p0({ 16, 26, 36 });
+	const array<size_t, d> p1({ 16, 30, 44 });
+	vector<double> mn(d, numeric_limits<double>::max());
+	vector<double> mx(d, numeric_limits<double>::lowest());
+
 	// Locate the @<TRIPOS>MOLECULE record to parse the number of atoms.
 	string line;
 	while (getline(cin, line) && line != "@<TRIPOS>MOLECULE");
@@ -15,31 +23,29 @@ int main(int argc, char* argv[])
 
 	// Locate the @<TRIPOS>ATOM record and parse the atoms.
 	while (getline(cin, line) && line != "@<TRIPOS>ATOM");
-	double x0 =  9999, y0 =  9999, z0 =  9999;
-	double x1 = -9999, y1 = -9999, z1 = -9999;
 	for (size_t i = 0; i < num_atoms && getline(cin, line); ++i)
 	{
 		const bool standard = 'A' <= line[47] && line[47] <= 'Z';
-		const double x = stod(standard ? line.substr(16, 10) : line.substr(16, 14));
-		const double y = stod(standard ? line.substr(26, 10) : line.substr(30, 14));
-		const double z = stod(standard ? line.substr(36, 10) : line.substr(44, 14));
-		if (x < x0) x0 = x;
-		if (x > x1) x1 = x;
-		if (y < y0) y0 = y;
-		if (y > y1) y1 = y;
-		if (z < z0) z0 = z;
-		if (z > z1) z1 = z;
+		#pragma unroll
+		for (size_t i = 0; i < d; ++i)
+		{
+			const double v = stod(standard ? line.substr(p0[i], 10) : line.substr(p1[i], 14));
+			mn[i] = min<double>(mn[i], v);
+			mx[i] = max<double>(mx[i], v);
+		}
 	}
 
 	// Output the box.
 	cout.setf(ios::fixed, ios::floatfield);
 	cout << setprecision(3);
-	cout
-		<< "center_x=" << (x0 + x1) * 0.5 << endl
-		<< "center_y=" << (y0 + y1) * 0.5 << endl
-		<< "center_z=" << (z0 + z1) * 0.5 << endl
-		<< "size_x=" << (x1 - x0) * 1.5 + 2 << endl
-		<< "size_y=" << (y1 - y0) * 1.5 + 2 << endl
-		<< "size_z=" << (z1 - z0) * 1.5 + 2 << endl
-	;
+	#pragma unroll
+	for (size_t i = 0; i < d; ++i)
+	{
+		cout << "center_" << c[i] << '=' << (mx[i] + mn[i]) * 0.5 << endl;
+	}
+	#pragma unroll
+	for (size_t i = 0; i < d; ++i)
+	{
+		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.5 + 2 << endl;
+	}
 }

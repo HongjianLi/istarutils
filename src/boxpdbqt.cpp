@@ -8,8 +8,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	const size_t d = 3;
-	const array<size_t, d> p({ 30, 38, 46 });
 	const array<char, d> c({ 'x', 'y', 'z' });
+	const array<size_t, d> p({ 30, 38, 46 });
 	vector<double> mn(d, numeric_limits<double>::max());
 	vector<double> mx(d, numeric_limits<double>::lowest());
 	for (string line; getline(cin, line);)
@@ -33,6 +33,6 @@ int main(int argc, char* argv[])
 	#pragma unroll
 	for (size_t i = 0; i < d; ++i)
 	{
-		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.5 + 2 << endl;
+		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.3 + 4 << endl;
 	}
 }

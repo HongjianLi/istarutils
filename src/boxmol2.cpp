@@ -46,6 +46,6 @@ int main(int argc, char* argv[])
 	#pragma unroll
 	for (size_t i = 0; i < d; ++i)
 	{
-		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.5 + 2 << endl;
+		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.3 + 4 << endl;
 	}
 }

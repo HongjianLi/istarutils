@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-void write(const vector<string>& lines, const string& filename)
+void write(const vector<string>& lines, const string filename)
 {
 	ofstream ofs(filename);
 	for (const auto& line : lines)
@@ -17,24 +17,16 @@ int main(int argc, char* argv[])
 {
 	const string delimiter = "@<TRIPOS>MOLECULE";
 	vector<string> lines;
-	string line, name;
-	while (getline(cin, line))
+	size_t id = 0;
+	for (string line; getline(cin, line);)
 	{
-		if (line == delimiter)
+		if (line == delimiter && !lines.empty())
 		{
-			if (!lines.empty())
-			{
-				write(lines, name + ".mol2");
-				lines.clear();
-			}
-			lines.push_back(delimiter);
-			getline(cin, name);
-			lines.push_back(name);
+			write(lines, to_string(++id) + ".mol2");
+			lines.clear();
 		}
-		else
-		{
-			lines.push_back(line);
-		}
+		lines.push_back(line);
 	}
-	write(lines, name + ".mol2");
+	write(lines, to_string(++id) + ".mol2");
+	cout << "Splitted into " << id << " files" << endl;
 }

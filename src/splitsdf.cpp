@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-void write(const vector<string>& lines, const string& filename)
+void write(const vector<string>& lines, const string filename)
 {
 	ofstream ofs(filename);
 	for (const auto& line : lines)
@@ -31,4 +31,5 @@ int main(int argc, char* argv[])
 	{
 		write(lines, to_string(++id) + ".sdf");
 	}
+	cout << "Splitted into " << id << " files" << endl;
 }

@@ -3,10 +3,13 @@
 #include <array>
 #include <limits>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+	const double bszr = argc < 2 ? 1.4 : stod(argv[1]);
+	const double bsza = argc < 3 ? 6 : stod(argv[2]);
 	const size_t d = 3;
 	const array<char, d> c({ 'x', 'y', 'z' });
 	const array<size_t, d> p({ 30, 38, 46 });
@@ -33,6 +36,6 @@ int main(int argc, char* argv[])
 	#pragma unroll
 	for (size_t i = 0; i < d; ++i)
 	{
-		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * 1.3 + 4 << endl;
+		cout << "size_"   << c[i] << '=' << (mx[i] - mn[i]) * bszr + bsza << endl;
 	}
 }
